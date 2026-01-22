@@ -11,18 +11,7 @@ extern crate alloc;
 use alloc::vec;
 
 // Define the Flipper contract interface
-sol! {
-    contract Flipper {
-        /// Event emitted when the value is flipped
-        event Flipped(bool new_value);
-        
-        /// Get the current value
-        function get() public view returns (bool);
-        
-        /// Flip the boolean value
-        function flip() public;
-    }
-}
+sol!("Flipper.sol");
 
 #[global_allocator]
 static mut ALLOC: picoalloc::Mutex<picoalloc::Allocator<picoalloc::ArrayPointer<1024>>> = {
