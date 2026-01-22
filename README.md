@@ -16,19 +16,7 @@ Before getting started, ensure you have the following tools installed:
     curl -L https://foundry.paradigm.xyz | bash
     foundryup
     ```
-
-3.  **Polkadot SDK (Revive Node)**:
-    You will need a local dev node running `pallet-revive`.
-    ```bash
-    # Clone and build polkadot-sdk (if not done already)
-    # Then run the node with debug logging:
-    RUST_LOG="error,evm=debug,sc_rpc_server=info,runtime::revive=debug" ./target/release/revive-dev-node --dev
-    ```
-    And the eth-rpc proxy:
-    ```bash
-    RUST_LOG="info,eth-rpc=debug" ./target/release/eth-rpc --dev
-    ```
-    *(Assuming you have the `polkadot-sdk` built locally)*
+3. **Having an available network to deploy**: You may [either run a local node](https://docs.polkadot.com/smart-contracts/dev-environments/local-dev-node/), or deploy on the Polkadot Testnet.
 
 ## Compilation
 
@@ -47,7 +35,7 @@ We use `cast` (from Foundry) to deploy the contract via the Ethereum JSON-RPC co
 
 1.  **Set up environment variables**:
     ```bash
-    export ETH_RPC_URL="http://localhost:8545"
+    export ETH_RPC_URL="https://services.polkadothub-rpc.com/testnet" # If using a localnode, set it to: http://localhost:8545
     export PRIVATE_KEY=0x5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133
     ```
     > [!CAUTION]
