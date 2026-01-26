@@ -35,33 +35,18 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 const VALUE_KEY: [u8; 32] = [0u8; 32];
 
 /// Get the current boolean value from storage
-fn get_value() -> bool {
-    let mut value_bytes = vec![0u8; 32];
-    let mut output = value_bytes.as_mut_slice();
-    
-    match api::get_storage(StorageFlags::empty(), &VALUE_KEY, &mut output) {
-        Ok(_) => {
-            // Check if the last byte is non-zero (Solidity stores bool as uint8)
-            output[31] != 0
-        }
-        Err(_) => false, // Default to false if not set
-    }
-}
+fn get_value() -> bool { 
+    todo!()
+ }
 
 /// Set the boolean value in storage
 fn set_value(value: bool) {
-    let mut value_bytes = [0u8; 32];
-    value_bytes[31] = if value { 1 } else { 0 };
-    api::set_storage(StorageFlags::empty(), &VALUE_KEY, &value_bytes);
+    todo!()
 }
 
 /// Emit a Flipped event
 fn emit_flipped(new_value: bool) {
-    let _event = Flipper::Flipped { new_value };
-    let topics = [Flipper::Flipped::SIGNATURE_HASH.0];
-    let mut data = [0u8; 32];
-    data[31] = if new_value { 1 } else { 0 };
-    api::deposit_event(&topics, &data);
+    todo!()
 }
 
 /// Constructor: Initialize the flipper with false
@@ -76,41 +61,5 @@ pub extern "C" fn deploy() {
 #[no_mangle]
 #[polkavm_derive::polkavm_export]
 pub extern "C" fn call() {
-    // Read the call data
-    let call_data_len = api::call_data_size();
-    let mut call_data = vec![0u8; call_data_len as usize];
-    api::call_data_copy(&mut call_data, 0);
-
-    // Extract the function selector (first 4 bytes)
-    let selector: [u8; 4] = call_data[0..4].try_into().unwrap();
-
-    match selector {
-        // Handle flip() function call
-        Flipper::flipCall::SELECTOR => {
-            // Get current value
-            let current = get_value();
-            // Flip it
-            let new_value = !current;
-            // Store the new value
-            set_value(new_value);
-            // Emit event
-            emit_flipped(new_value);
-        }
-        
-        // Handle get() function call
-        Flipper::getCall::SELECTOR => {
-            // Get current value
-            let current = get_value();
-            // Prepare return data: bool encoded as uint256
-            let mut return_data = [0u8; 32];
-            return_data[31] = if current { 1 } else { 0 };
-            // Return the value
-            api::return_value(ReturnFlags::empty(), &return_data);
-        }
-        
-        _ => {
-            // Unknown function selector - revert
-            api::return_value(ReturnFlags::REVERT, b"Unknown function");
-        }
-    }
+    todo!()
 }
